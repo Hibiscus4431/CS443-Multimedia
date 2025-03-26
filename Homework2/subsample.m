@@ -8,7 +8,7 @@
 % This function will be called in the MatLab subsampling application
 function [outputImgRGB, outputImgGray] = subsample(inputImg, config) 
     % Grab the image and put its values in a matrix
-    OrigImage = double(inputImg);
+    OrigImage = im2double(inputImg);
     [row, col, layer] = size(OrigImage);
 
     % YCbCr Matrix (given in assignment)
@@ -96,7 +96,8 @@ function [outputImgRGB, outputImgGray] = subsample(inputImg, config)
 
     % Make a copy of the YCbCr converted image for output2
     % Separate the layers from Cr subsampled image
-    outputImgGray(:, :) = Subsampled(:, :, 3);
+    CrImage(:, :) = Subsampled(:, :, 3);
+    outputImgGray = CrImage;
 
     % Save the grayscale output image
     imwrite(outputImgGray, "ouputImgGray.png");
@@ -123,7 +124,6 @@ function [outputImgRGB, outputImgGray] = subsample(inputImg, config)
     end
 
     % Save RGB output image
-    outputImgRGB = uint8(outputImgRGB);
     imwrite(outputImgRGB, "ouputImgRGB.png");
 
     % Display for .m running testing purposes
